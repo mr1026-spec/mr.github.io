@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>はじめてのサイト</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パスワード保護</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f6f9; margin: 0; }
+        .box { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; width: 300px; }
+        input { padding: 8px; width: 80%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 8px 16px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        #content { display: none; }
+        .error { color: red; font-size: 0.85rem; margin-top: 8px; }
+    </style>
 </head>
 <body>
-  <h1>こんにちは！</h1>
-  <p>はじめてのホームページです。</p>
+
+    <!-- パスワード入力画面 -->
+    <div class="box" id="auth-box">
+        <h2>パスワードを入力</h2>
+        <input type="password" id="password-input" placeholder="パスワード">
+        <br>
+        <button onclick="checkPassword()">送信</button>
+        <div class="error" id="error-message"></div>
+    </div>
+
+    <!-- パスワード正解後に表示される中身 -->
+    <div class="box" id="content">
+        <h2>ようこそ！</h2>
+        <p>ここに秘密のメッセージや画像を配置できます。</p>
+    </div>
+
+    <script>
+        // 設定したいパスワード（ここに任意の文字列を設定）
+        const correctPassword = "1234";
+
+        function checkPassword() {
+            const inputVal = document.getElementById("password-input").value;
+            if (inputVal === correctPassword) {
+                document.getElementById("auth-box").style.display = "none";
+                document.getElementById("content").style.display = "block";
+            } else {
+                document.getElementById("error-messageM").innerText = "パスワードが違います";
+            }
+        }
+    </script>
 </body>
 </html>
