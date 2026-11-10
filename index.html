@@ -24,13 +24,16 @@
         <button onclick="checkPassword()">送信</button>
         <div class="error" id="error-message"></div>
     </div>
-
-    <!-- パスワード正解後に表示される中身 -->
-    <div class="box" id="content">
-        <h2>ようこそ！</h2>
-        <p>ここに秘密のメッセージや画像を配置できます。</p>
+<!-- パスワード正解後に表示される中身 -->
+    <div class="box" id="content" style="max-width: 500px;">
+        <h2>公開成功！</h2>
+        <!-- メッセージ部分 -->
+        <p>ここにみんなへ向けたメッセージや、説明文を自由に入力できます。</p>
+        
+        <!-- 画像を表示する部分（your-image.jpgの部分を画像ファイル名に変更） -->
+        <img src="IMG_2842" alt="秘密の画像" style="width: 100%; border-radius: 8px; margin-top: 16px;">
     </div>
-
+  
     <script>
         // 設定したいパスワード（ここに任意の文字列を設定）
         const correctPassword = "1234";
