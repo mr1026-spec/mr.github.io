@@ -3,39 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>パスワード保護</title>
+    <title>思い出のアルバム</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f6f9; margin: 0; }
-        .box { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; width: 300px; }
-        input { padding: 8px; width: 80%; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        button { padding: 8px 16px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background: #0056b3; }
-        #content { display: none; }
-        .error { color: red; font-size: 0.85rem; margin-top: 8px; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: #f7f5f0; /* 温かみのあるエモい背景色 */
+            margin: 0; 
+            padding: 40px 20px;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        
+        /* パスワード入力画面のスタイル */
+        .auth-container { 
+            background: #fff; 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            text-align: center; 
+            width: 100%;
+            max-width: 320px; 
+        }
+        input { padding: 10px 12px; width: 85%; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; outline: none; }
+        button { padding: 10px 20px; background: #333; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
+        button:hover { background: #555; }
+        .error { color: #e74c3c; font-size: 0.85rem; margin-top: 10px; }
+
+        /* パスワード正解後のアルバム全体エリア */
+        #content { 
+            display: none; 
+            width: 100%;
+            max-width: 540px; 
+        }
+
+        .album-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .album-header h2 {
+            font-size: 1.5rem;
+            color: #2c2c2c;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .album-header p {
+            color: #777;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* 個別の思い出カード */
+        .memory-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            margin-bottom: 35px;
+            border: 1px solid #eae6e1;
+        }
+        .memory-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .memory-info {
+            padding: 24px;
+        }
+        .memory-date {
+            font-size: 0.8rem;
+            color: #999;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .memory-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+        .memory-text {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
 
     <!-- パスワード入力画面 -->
-    <div class="box" id="auth-box">
-        <h2>パスワードを入力</h2>
-        <input type="password" id="password-input" placeholder="パスワード">
+    <div class="auth-container" id="auth-box">
+        <h2>Members Only</h2>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">パスワードを入力してください</p>
+        <input type="password" id="password-input" placeholder="Password">
         <br>
-        <button onclick="checkPassword()">送信</button>
+        <button onclick="checkPassword()">Enter</button>
         <div class="error" id="error-message"></div>
     </div>
-<!-- パスワード正解後に表示される中身 -->
-    <div class="box" id="content" style="max-width: 500px;">
-        <h2>公開成功！</h2>
-        <!-- メッセージ部分 -->
-        <p>ここにみんなへ向けたメッセージや、説明文を自由に入力できます。</p>
-        
-        <!-- 画像を表示する部分（your-image.jpgの部分を画像ファイル名に変更） -->
-  <img src="IMG_2842.jpg" alt="秘密の画像" style="width: 100%; border-radius: 8px; margin-top: 16px;">
+
+    <!-- パスワード正解後に表示されるアルバムの中身 -->
+    <div id="content">
+        <div class="album-header">
+            <h2>Our Memories</h2>
+            <p>かけがえのない、記憶の断片</p>
+        </div>
+
+        <!-- 1枚目の写真（IMG_2842.jpg） -->
+        <div class="memory-card">
+            <img src="IMG_2842.jpg" alt="思い出の写真1">
+            <div class="memory-info">
+                <span class="memory-date">2026.11.11</span>
+                <h3 class="memory-title">はじまりの場所</h3>
+                <p class="memory-text">ここに当時のエモい思い出や、心に残っているセリフなどを自由に書き込めます。空の色や、そのときの空気感がよみがえる大切な一枚。</p>
+            </div>
+        </div>
+
+        <!-- 2枚目の写真を追加したいときは、このブロックを丸ごとコピーして下の行に貼り付けます -->
+        <!--
+        <div class="memory-card">
+            <img src="ここに2枚目の画像ファイル名.jpg" alt="思い出の写真2">
+            <div class="memory-info">
+                <span class="memory-date">2026.11.X</span>
+                <h3 class="memory-title">写真のタイトル</h3>
+                <p class="memory-text">ここに2枚目の思い出の詳細を書きます。</p>
+            </div>
+        </div>
+        -->
     </div>
-  
+
     <script>
-        // 設定したいパスワード（ここに任意の文字列を設定）
+        // 設定したいパスワード
         const correctPassword = "1234";
 
         function checkPassword() {
@@ -44,7 +145,7 @@
                 document.getElementById("auth-box").style.display = "none";
                 document.getElementById("content").style.display = "block";
             } else {
-            document.getElementById("error-message").innerText = "パスワードが違います";
+                document.getElementById("error-message").innerText = "パスワードが違います";
             }
         }
     </script>
