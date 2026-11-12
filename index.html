@@ -6,8 +6,8 @@
     <title>思い出</title>
     <style>
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background: #f7f5f0; /* 温かみのあるエモい背景色 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Yu Gothic", sans-serif; 
+            background: #f7f5f0; 
             margin: 0; 
             padding: 40px 20px;
             display: flex; 
@@ -16,7 +16,7 @@
             min-height: 100vh; 
         }
         
-        /* パスワード入力画面のスタイル */
+        /* パスワード入力画面 */
         .auth-container { 
             background: #fff; 
             padding: 40px 30px; 
@@ -31,7 +31,7 @@
         button:hover { background: #555; }
         .error { color: #e74c3c; font-size: 0.85rem; margin-top: 10px; }
 
-        /* パスワード正解後のアルバム全体エリア */
+        /* アルバム全体エリア */
         #content { 
             display: none; 
             width: 100%;
@@ -63,11 +63,43 @@
             margin-bottom: 35px;
             border: 1px solid #eae6e1;
         }
-        .memory-card img {
+
+        /* 横スライド（インスタ風カルーセル）の設定 */
+        .carousel-wrapper {
+            position: relative;
+        }
+        .photo-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefoxでスクロールバーを隠す */
+        }
+        .photo-slider::-webkit-scrollbar {
+            display: none; /* Chrome/Safariでスクロールバーを隠す */
+        }
+        .photo-slider img {
             width: 100%;
-            height: auto;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            object-fit: cover;
+            aspect-ratio: 4 / 3; /* 写真の縦横比を統一（縦長がいい場合は 3 / 4 に変更） */
             display: block;
         }
+        /* 右上の「スワイプできます」バッジ */
+        .swipe-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            pointer-events: none;
+            letter-spacing: 0.5px;
+        }
+
         .memory-info {
             padding: 24px;
         }
@@ -91,6 +123,39 @@
             line-height: 1.7;
             margin: 0;
         }
+
+        /* 最後の手紙メッセージのデザイン */
+        .letter-card {
+            background: #fffdf9; /* 少しクリーム色がかった紙の質感 */
+            border-radius: 12px;
+            padding: 36px 28px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            border: 1px solid #e6dfd5;
+            margin-top: 50px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .letter-header {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .letter-body {
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; /* 明朝体で手紙らしさを演出 */
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 2.1;
+            white-space: pre-wrap; /* 改行をそのまま反映させる */
+        }
+        .letter-footer {
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+            text-align: right;
+            margin-top: 28px;
+            font-size: 0.95rem;
+            color: #444;
+        }
     </style>
 </head>
 <body>
@@ -112,38 +177,55 @@
             <p>いつもありがとう</p>
         </div>
 
-        <!-- 1枚目の写真（IMG_2842.jpg） -->
+        <!-- 1つ目の思い出カード（複数枚スライド対応） -->
         <div class="memory-card">
-            <img src="IMG_3402.jpg" alt="思い出の写真1">
+            <div class="carousel-wrapper">
+                <!-- 右上の案内表示（1枚だけのカードにはこの行を消してください） -->
+                <span class="swipe-badge">Swipe →</span>
+                
+                <!-- この中に img タグを並べると横にスライドできます -->
+                <div class="photo-slider">
+                    <img src="IMG_3402.jpg" alt="思い出の写真1-1">
+                    <img src="IMG_2842.jpg" alt="思い出の写真1-2">
+                    <!-- 3枚目を入れる場合は下に <img src="ファイル名.jpg" alt=""> を追加 -->
+                </div>
+            </div>
             <div class="memory-info">
                 <span class="memory-date">2026.11.11</span>
                 <h3 class="memory-title">はじまりの場所</h3>
-                <p class="memory-text">ここに当時のエモい思い出や、心に残っているセリフなどを自由に書き込めます。空の色や、そのときの空気感がよみがえる大切な一枚。</p>
+                <p class="memory-text">ここに当時のエモい思い出や、心に残っているセリフなどを自由に書き込めます。横にスライドすると他の写真も見られます。</p>
             </div>
         </div>
+
+        <!-- 2つ目の思い出カード（1枚だけ表示するパターン） -->
         <div class="memory-card">
-            <img src="IMG_2122.jpg" alt="思い出の写真2">
+            <div class="carousel-wrapper">
+                <div class="photo-slider">
+                    <img src="IMG_2122.jpg" alt="思い出の写真2">
+                </div>
+            </div>
             <div class="memory-info">
                 <span class="memory-date">2026.7.23</span>
                 <h3 class="memory-title">写真のタイトル</h3>
-                <p class="memory-text">ここに2枚目の思い出の詳細を書きます。</p>
+                <p class="memory-text">ここに2つ目の思い出の詳細を書きます。</p>
             </div>
         </div>
-        <!-- 2枚目の写真を追加したいときは、このブロックを丸ごとコピーして下の行に貼り付けます -->
-        <!--
-        <div class="memory-card">
-            <img src="ここに2枚目の画像ファイル名.jpg" alt="思い出の写真2">
-            <div class="memory-info">
-                <span class="memory-date">2026.11.X</span>
-                <h3 class="memory-title">写真のタイトル</h3>
-                <p class="memory-text">ここに2枚目の思い出の詳細を書きます。</p>
-            </div>
+
+        <!-- 最後の手紙セクション -->
+        <div class="letter-card">
+            <div class="letter-header">〇〇へ</div>
+            <div class="letter-body">お誕生日おめでとう！
+こうしてこれまでの写真を振り返ってみると、本当にたくさんの場所に行って、いろんな思い出を作ってきたね。
+
+いつも隣で笑ってくれてありがとう。
+これからも一緒に楽しい時間を重ねていこうね。
+
+素敵な一年になりますように。</div>
+            <div class="letter-footer">2026.11.13<br>〇〇より</div>
         </div>
-        -->
     </div>
 
     <script>
-        // 設定したいパスワード
         const correctPassword = "1234";
 
         function checkPassword() {
